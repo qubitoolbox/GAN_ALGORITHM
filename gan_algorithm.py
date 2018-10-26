@@ -61,7 +61,6 @@ class Generative():
     noise = Input(shape=(self.xdim,))
     images = model(noise)
     return Model(noise, images)
-    
    
   def build_discriminator(self):
     #build network and its parameters
