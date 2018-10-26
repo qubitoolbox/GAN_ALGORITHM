@@ -59,6 +59,11 @@ class Generative():
     model.add(Reshape(self.img_shape))
     
     model.summary()
+    noise = Input(shape=(self.xdim,))
+    images = model(noise)
+    return Model(noise, images)
+  
+  
     
     
     
