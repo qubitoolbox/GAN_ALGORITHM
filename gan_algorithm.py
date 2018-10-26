@@ -113,7 +113,6 @@ class Generative():
       #print the grandient descent before it reaches a global minima
       print ("%d [g loss: %f, acc.: %.2f%%] [d loss: %f]" % (epoch, loss_func_real[0], 10*10*loss_func_real[1], loss_func_fake))
       
-      #
   def generate_images(self, iterations):
     g, r = 5,5
     noise = np.random.normal(0,1, (g * c, self.pixdim))
