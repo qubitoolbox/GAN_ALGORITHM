@@ -25,6 +25,15 @@ class Generative():
     #create the discriminator
     self.discriminator = self.build_discriminator()
     self.discriminator.compile(loss='mean_squared_error',
-                               optimizer=
+                               optimizer=optimizer,
+                               metrics=['accuracy'])
+    #create the generator
+    self.gen = self.build_generator()
+    #The generator will take random noise as the z values and will create images
+    depth = Input(shape=(self.dim,))
+    images = self.gen(depth)
+    #we look to only train the generator of images
+    self.discriminator.trainable = False
+    
                                
    
