@@ -94,6 +94,24 @@ class Generative():
     #iterate through back prop
     for iter in range(iterations):
     
+      #select a batch of random images for training
+      inrand = np.random.randint(0, xinputrain[0], batch)
+      images = xinputrain[inrand]
+      noise = np.random.rand(0, 1, (batch, self.pixdim))
+      #generate the back of new imgs
+      generated_images = self.gen.predict(noise)
+      
+      #train the adversarial network
+      loss_func_real = self.discriminator.train_on_batch(images, vald)
+      loss_func_fake = self.discriminator.train_on_batch(generated_images, fakefoe)
+      loss_func = 0.5 * np.add(loss_func_real, loss_func_fake)
+      
+      noise = np.random.rand(0,1, (batch_size, self.pixdim))
+      
+      #train the generative network to validate/assimilate the samples
+      loss_func_gen = self.joined.train_on_batch(noise, vald)
+      #print the grandient descent before it reaches a global minima
+      print ("%d [g loss: %f, acc.: %.2f%%] [d loss: %f]" % (epoch, loss_func_real[0], 100*loss_func_real[1], loss_func_fake))
     
     
     
