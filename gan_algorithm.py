@@ -134,5 +134,3 @@ class Generative():
     gan = Generative()
     gan.training(iterations=7500, batch=32, num_samples=50)
     
-                               
-   
