@@ -56,14 +56,44 @@ class Generative():
     model.add(optimizer)
     model.add(BatchNormalization(momentum=0.8))
     model.add(Dense(np.prod(self.pix_format), activation='tanh'))
-    model.add(Reshape(self.img_shape))
+    model.add(Reshape(self.pix_format))
     
     model.summary()
     noise = Input(shape=(self.xdim,))
     images = model(noise)
     return Model(noise, images)
+    
+   
+  def build_discriminator(self):
+    #build network and its parameters
+    model = Sequential()
+    model.add(Flatten(self.pix_format))
+    model.add(Dense(512))
+    model.add(optimizer)
+    model.add(Dense(256))
+    model.add(optimizer))
+    model.add(Dense(1, Activation='relu'))
+    model.summary()
+    
+    images = Input(shape=self.pix_format))
+    validation = model(images)
+    
+    return Model(images, validation)
   
-  
+  def training(self, iterations, batch= 128, num_samples=50):
+    #load the data set
+    (xinputrain, h_), (_h, y) = mnist.load_data()
+    # normalize data in the range of -1 to 1
+    xinputrain = xinput / 127.5 -1.0
+    xinputrain = np.expand_dims(xinputrain, axis=3)
+    
+    #adversarial
+    vald = np.ones((batch, 1))
+    fakefoe = np.zeros((batch, 1))
+    
+    #iterate through back prop
+    for iter in range(iterations):
+    
     
     
     
