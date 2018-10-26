@@ -34,6 +34,33 @@ class Generative():
     images = self.gen(depth)
     #we look to only train the generator of images
     self.discriminator.trainable = False
+    #Validate the input generated as images
+    validation_ = self.discriminator(images)
+    
+    #connect the generative network with the discriminator also called adversary
+    #perform training
+    self.joined = Model(depth, validation_)
+    self.joined.compile(loss='binary_crossentropy', optimizer)
+    
+  def build_generator(self):
+    #initialize the type of model in tensorflow
+    #with its parameters for the network
+    model = Sequential()
+    model.add(Dense(256, xdim = self.dim))
+    model.add(optimizer)
+    model.add(BatchNormalization(momentum=0.8))
+    model.add(Dense(512))
+    model.add(optimizer)
+    model.add(BatchNormalization(momentum=0.8))
+    model.add(Dense(1024))
+    model.add(optimizer)
+    model.add(BatchNormalization(momentum=0.8))
+    model.add(Dense(np.prod(self.pix_format), activation='tanh'))
+    model.add(Reshape(self.img_shape))
+    
+    model.summary()
+    
+    
     
                                
    
