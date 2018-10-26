@@ -1,7 +1,7 @@
 #import all libraries
 
 from keras.datasets import mnist
-from keras.layers import Input, Dense, Reshape, Flatte, Dropout
+from keras.layers import Input, Dense, Reshape, Flatten, Dropout
 from keras.layers import BatchNormalization, Activation, ZeroPadding2D
 from keras.layers.advanced_activations import LeakyRelu
 from keras import optimizers
@@ -117,8 +117,22 @@ class Generative():
   def generate_images(self, iterations):
     g, r = 5,5
     noise = np.random.normal(0,1, (g * c, self.pixdim))
-    generateImage = self.generator
-    generateImage = 0.5 * 
+    generateImage = self.gen.predict(noise)
+    generateImage = 0.5 * generateImage + 0.5
+    
+    chrt, axiss = plt.subplots(g, r)
+    counter = 0
+    for k in range(r):
+      for j in range(g):
+        axiss[k, j].imshow(generateImage[counter, :,:, 0], cmap='gray')
+        axiss[k, j].axis('off')
+        counter = counter + 1
+    chrt.savefig("%d.png" % epoch)
+    plt.close()
+    
+  if __name__ == '__main__':
+    gan = Generative()
+    gan.training(iterations=7500, batch=32, num_samples=50)
     
                                
    
