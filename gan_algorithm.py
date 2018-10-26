@@ -3,7 +3,7 @@
 from keras.datasets import mnist
 from keras.layers import Input, Dense, Reshape, Flatten, Dropout
 from keras.layers import BatchNormalization, Activation, ZeroPadding2D
-from keras.layers.advanced_activations import LeakyRelu
+#from keras.layers.advanced_activations import LeakyRelu
 from keras import optimizers
 from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.models import Sequential, Model
@@ -40,7 +40,7 @@ class Generative():
     #connect the generative network with the discriminator also called adversary
     #perform training
     self.joined = Model(depth, validation_)
-    self.joined.compile(loss='binary_crossentropy', optimizer)
+    self.joined.compile(loss='binary_crossentropy')#, optimizer)
     
   def build_generator(self):
     #initialize the type of model in tensorflow
@@ -71,11 +71,11 @@ class Generative():
     model.add(Dense(512))
     model.add(optimizer)
     model.add(Dense(256))
-    model.add(optimizer))
+    model.add(optimizer)
     model.add(Dense(1, Activation='relu'))
     model.summary()
     
-    images = Input(shape=self.pix_format))
+    images = Input(shape=self.pix_format)
     validation = model(images)
     
     return Model(images, validation)
