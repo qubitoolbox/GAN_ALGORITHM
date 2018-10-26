@@ -119,7 +119,7 @@ class Generative():
     noise = np.random.normal(0,1, (g * c, self.pixdim))
     generateImage = self.gen.predict(noise)
     generateImage = 0.5 * generateImage + 0.5
-    
+    #plot the images onto a chart
     chrt, axiss = plt.subplots(g, r)
     counter = 0
     for k in range(r):
