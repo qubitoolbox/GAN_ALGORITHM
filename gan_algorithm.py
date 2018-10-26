@@ -17,5 +17,14 @@ class Generative():
     self.gray = 1
     self.pix_format = (self.pix_row, self.pix_cols, self.gray)
     self.dim = 75
+    #set the learning learning rate and decay value
+    #learning rate is set to 1.0 due to adadelta serving
+    #as an 'automated' learning rate finder
+    optimizer = Adadelta(lr=1.0, rho=0.95, epsilon=None, decay=0.003)
     
     #create the discriminator
+    self.discriminator = self.build_discriminator()
+    self.discriminator.compile(loss='mean_squared_error',
+                               optimizer=
+                               
+   
